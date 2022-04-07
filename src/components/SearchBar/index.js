@@ -4,7 +4,6 @@ import './style.scss';
 import { Input } from 'semantic-ui-react';
 
 function SearchBar({ searchWord, setSearchWord, launchSearch }) {
-
   const handleChange = (event) => {
     setSearchWord(event.target.value);
   };
@@ -21,5 +20,11 @@ function SearchBar({ searchWord, setSearchWord, launchSearch }) {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  searchWord: PropTypes.string.isRequired,
+  setSearchWord: PropTypes.func.isRequired,
+  launchSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

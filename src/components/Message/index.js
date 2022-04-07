@@ -8,4 +8,8 @@ function Message({ counterResults }) {
   );
 }
 
+Message.propTypes = {
+  counterResults: PropTypes.number.isRequired,
+};
+
 export default Message;

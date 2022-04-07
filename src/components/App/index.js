@@ -20,21 +20,22 @@ function App() {
       const response = await axios.get(`https://api.github.com/search/repositories?q=${searchWord}`);
       setResultData(response.data.items);
       setCounterResults(response.data.total_count);
-      console.log(response.data.total_count);
     }
     catch (error) {
+      // eslint-disable-next-line no-console
       console.log('error', error);
     }
   }
   useEffect(() => searchWord, []);
   useEffect(() => counterResults, []);
-  
+
   return (
     <div className="app">
       <img src={githubLogo} alt="react logo" />
       <SearchBar
         searchWord={searchWord}
         setSearchWord={setSearchWord}
+        // eslint-disable-next-line react/jsx-no-bind
         launchSearch={launchSearch}
       />
       { counterResults !== null && <Message counterResults={counterResults} />}
