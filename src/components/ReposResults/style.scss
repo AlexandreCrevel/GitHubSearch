@@ -1,0 +1,16 @@
+.all-results {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.single-repo {
+  width: 25vw;
+  border: 1px solid black;
+  margin: 1em;
+
+  &--img {
+    width: 30vw;
+  }
+}
