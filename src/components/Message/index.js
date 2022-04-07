@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './style.scss';
+import './styles.scss';
 import { Segment } from 'semantic-ui-react';
 
 function Message({ counterResults }) {

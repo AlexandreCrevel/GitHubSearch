@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './style.scss';
+import './styles.scss';
 
 import { Input } from 'semantic-ui-react';
 
