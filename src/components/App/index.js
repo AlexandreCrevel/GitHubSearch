@@ -1,5 +1,5 @@
 // == Import
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import axios from 'axios';
@@ -21,15 +21,15 @@ function App() {
   const [searchWord, setSearchWord] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // eslint-disable-next-line no-unused-vars
-  async function launchSearch(event) {
-    event.preventDefault();
+  async function launchSmallSearch() {
+    const thisPage = 1;
     try {
       const response = await axios.get(
-        `https://api.github.com/search/repositories?q=${searchWord}`,
+        `https://api.github.com/search/repositories?q=${searchWord}&sort=stars&order=desc&page=${thisPage}&per_page=9`,
       );
       setResultData(response.data.items);
       setCounterResults(response.data.total_count);
+      setCurrentPage(thisPage + 1);
     }
     catch (error) {
       // eslint-disable-next-line no-console
@@ -37,7 +37,7 @@ function App() {
     }
   }
 
-  async function launchSmallSearch() {
+  async function nextPageSearch() {
     try {
       const response = await axios.get(
         `https://api.github.com/search/repositories?q=${searchWord}&sort=stars&order=desc&page=${currentPage}&per_page=9`,
@@ -51,14 +51,6 @@ function App() {
       console.log('error', error);
     }
   }
-
-  function resetSearch() {
-    setCurrentPage(1);
-    setResultData([]);
-  }
-  useEffect(() => searchWord, []);
-  useEffect(() => counterResults, []);
-  useEffect(() => currentPage, []);
 
   return (
     <div className="app">
@@ -74,8 +66,6 @@ function App() {
                 setSearchWord={setSearchWord}
                 // eslint-disable-next-line react/jsx-no-bind
                 launchSearch={launchSmallSearch}
-                // eslint-disable-next-line react/jsx-no-bind
-                resetSearch={resetSearch}
               />
             )}
           />
@@ -88,7 +78,7 @@ function App() {
       {counterResults > 9 && (
       <BottomButton
         // eslint-disable-next-line react/jsx-no-bind
-        launchSmallSearch={launchSmallSearch}
+        launchSmallSearch={nextPageSearch}
       />
       )}
     </div>
