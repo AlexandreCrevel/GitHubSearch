@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import './styles.scss';
 import { Button } from 'semantic-ui-react';
 
