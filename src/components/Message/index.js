@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import './style.scss';
 import { Segment } from 'semantic-ui-react';
 
-function Message() {
+function Message({ counterResults }) {
   return (
-    <Segment>Nombre de résultats</Segment>
+    <Segment>La recherche à donné {counterResults} résultats</Segment>
   );
 }
 

@@ -17,7 +17,8 @@ Repo.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
-}
+  // eslint-disable-next-line react/require-default-props
+  desc: PropTypes.string,
+};
 
 export default Repo;

@@ -1,32 +1,34 @@
 // == Import
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import githubLogo from 'src/assets/images/logo-github.png';
 import './styles.css';
 import 'semantic-ui-css/semantic.min.css';
 import Message from '../Message';
 import SearchBar from '../SearchBar';
 import ReposResults from '../ReposResults';
-import data from '../../data/repos';
 
 // == Composant
 function App() {
-  const [resultsData, setResultData] = useState(data.items);
-  const [counterResults, setCounterResults] = useState(0);
+  const [resultsData, setResultData] = useState([]);
+  const [counterResults, setCounterResults] = useState(null);
   const [searchWord, setSearchWord] = useState('');
 
-  function launchSearch(event) {
+  async function launchSearch(event) {
     event.preventDefault();
-    console.log("submit");
-    const newResults = [];
-    resultsData.forEach((item) => {
-      const itemLowerCase = item.full_name.toLowerCase();
-      itemLowerCase.includes(searchWord.toLowerCase()) ? newResults.push(item) : '';
-    });
-    setResultData(newResults);
+    try {
+      const response = await axios.get(`https://api.github.com/search/repositories?q=${searchWord}`);
+      setResultData(response.data.items);
+      setCounterResults(response.data.total_count);
+      console.log(response.data.total_count);
+    }
+    catch (error) {
+      console.log('error', error);
+    }
   }
-  useEffect(()=> searchWord, []);
-
-
+  useEffect(() => searchWord, []);
+  useEffect(() => counterResults, []);
+  
   return (
     <div className="app">
       <img src={githubLogo} alt="react logo" />
@@ -35,7 +37,7 @@ function App() {
         setSearchWord={setSearchWord}
         launchSearch={launchSearch}
       />
-      <Message counterResults={counterResults} />
+      { counterResults !== null && <Message counterResults={counterResults} />}
       <ReposResults items={resultsData} />
     </div>
   );
