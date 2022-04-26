@@ -18,10 +18,11 @@ function SearchBar({
   return (
     <form className="form" onSubmit={newSearch}>
       <Input
+        fluid
         value={searchWord}
         onChange={handleChange}
-        className="searchbar"
         icon="search"
+        iconPosition="left"
         placeholder="Search..."
       />
     </form>
